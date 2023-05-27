@@ -29,8 +29,9 @@ const ContactForm: React.FC = () => {
         <h2>Add Contact</h2>
         <form onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="name">Name:</label>
+            <label htmlFor="name">Name:</label> <br />
             <input
+              className="border border-gray-500"
               type="text"
               id="name"
               value={name}
@@ -38,8 +39,9 @@ const ContactForm: React.FC = () => {
             />
           </div>
           <div>
-            <label htmlFor="email">Email:</label>
+            <label htmlFor="email">Email:</label> <br />
             <input
+              className="border border-gray-500"
               type="email"
               id="email"
               value={email}
@@ -47,15 +49,22 @@ const ContactForm: React.FC = () => {
             />
           </div>
           <div>
-            <label htmlFor="phone">Phone:</label>
+            <label htmlFor="phone">Phone:</label> <br />
             <input
+              className="border border-gray-500"
               type="tel"
               id="phone"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />
           </div>
-          <button type="submit">Add Contact</button>
+          <br />
+          <button
+            type="submit"
+            className="rounded-none bg-emerald-500 text-white py-2 px-2"
+          >
+            Save Contact
+          </button>
         </form>
       </div>
     </>

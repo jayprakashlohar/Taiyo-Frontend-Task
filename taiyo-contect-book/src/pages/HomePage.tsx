@@ -4,22 +4,32 @@ import { Link } from "react-router-dom";
 const HomePage: React.FC = () => {
   return (
     <div>
-      <h2>Welcome to the Contact Management App</h2>
-      <p>
-        This app allows you to manage your contacts, view charts with COVID-19
-        data, and explore a map with country-specific statistics.
-      </p>
-      <div>
-        <h3>Navigation</h3>
+      <div className="mt-10 text-center">
+        <h3 className="text-3xl font-bold">Navigation</h3>
         <ul>
-          <li>
-            <Link to="/contacts">Contacts</Link>
+          <li className="mt-10">
+            <Link
+              to="/"
+              className="text-3xl font-semibold text-blue-700 underline"
+            >
+              Contacts
+            </Link>
           </li>
-          <li>
-            <Link to="/charts">Charts</Link>
+          <li className="mt-10">
+            <Link
+              to="/charts"
+              className="text-3xl font-semibold text-blue-700 underline"
+            >
+              Charts
+            </Link>
           </li>
-          <li>
-            <Link to="/map">Map</Link>
+          <li className="mt-10">
+            <Link
+              to="/map"
+              className="text-3xl font-semibold text-blue-700 underline"
+            >
+              Map
+            </Link>
           </li>
         </ul>
       </div>
