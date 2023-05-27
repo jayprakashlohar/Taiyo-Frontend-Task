@@ -43,6 +43,13 @@ const LineGraph: React.FC = () => {
         const graphData = {
           labels: graphLabels,
           datasets: graphDataSet,
+          options: {
+            scales: {
+              x: {
+                type: "category",
+              },
+            },
+          },
         };
 
         setGraphData(graphData);
@@ -56,8 +63,9 @@ const LineGraph: React.FC = () => {
 
   return (
     <div>
-      <h2>Line Graph</h2>
-      {graphData ? <Line data={graphData} /> : <p>Loading graph data...</p>}
+      <div style={{ width: "500px", height: "300px" }}>
+        {graphData ? <Line data={graphData} /> : <p>Loading graph data...</p>}
+      </div>
     </div>
   );
 };
