@@ -84,7 +84,7 @@ const ContactDetails: React.FC = () => {
           </Button>
         </div>
       ) : (
-        <div className=" border border-gray-400 ml-80 w-3/4 mt-10">
+        <div className="  ml-80 w-3/4 mt-10">
           <h2 className="text-center text-3xl font-semibold">Contact List</h2>
           {contacts.length === 0 ? (
             <p className="text-center text-3xl font-semibold">
