@@ -1,8 +1,25 @@
 import React, { useState } from "react";
+import {
+  Box,
+  Text,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Button,
+  useDisclosure,
+  FormLabel,
+  Input,
+} from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
 import { addContact } from "../../state/actions/contactActions";
+import { MdAddBox } from "react-icons/md";
 
 const ContactForm: React.FC = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -16,6 +33,7 @@ const ContactForm: React.FC = () => {
       email,
       phone,
     };
+
     dispatch(addContact(newContact));
     setName("");
     setEmail("");
@@ -24,49 +42,58 @@ const ContactForm: React.FC = () => {
 
   return (
     <>
-      <div className="border border-gray-500 p-4">
-        {" "}
-        <h2>Add Contact</h2>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="name">Name:</label> <br />
-            <input
-              className="border border-gray-500"
+      <Button
+        leftIcon={<MdAddBox />}
+        colorScheme="teal"
+        variant="solid"
+        onClick={onOpen}
+      >
+        Create contact
+      </Button>
+
+      <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader textAlign="center">Add New Contact</ModalHeader>
+          <hr style={{ marginTop: "0px" }} />
+          <ModalCloseButton />
+
+          <ModalBody>
+            <FormLabel>Name</FormLabel>
+            <Input
               type="text"
-              id="name"
+              placeholder="Enter your name"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
-          </div>
-          <div>
-            <label htmlFor="email">Email:</label> <br />
-            <input
-              className="border border-gray-500"
+            <FormLabel>Email</FormLabel>
+            <Input
               type="email"
-              id="email"
+              placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-          </div>
-          <div>
-            <label htmlFor="phone">Phone:</label> <br />
-            <input
-              className="border border-gray-500"
-              type="tel"
-              id="phone"
+            <FormLabel>Phone</FormLabel>
+            <Input
+              type="number"
+              placeholder="Enter your phone "
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />
-          </div>
-          <br />
-          <button
-            type="submit"
-            className="rounded-none bg-emerald-500 text-white py-2 px-2"
-          >
-            Save Contact
-          </button>
-        </form>
-      </div>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button
+              bgGradient="linear(to-l, #7928CA, #FF0080)"
+              color="#ffff"
+              w="100%"
+              onClick={handleSubmit}
+            >
+              Sava contact
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 };

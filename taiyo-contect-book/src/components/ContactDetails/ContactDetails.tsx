@@ -1,42 +1,21 @@
-// import React from "react";
-
-// interface ContactDetailsProps {
-//   contact: {
-//     id: number;
-//     name: string;
-//     email: string;
-//     phone: string;
-//   };
-// }
-
-// const ContactDetails: React.FC<ContactDetailsProps> = ({ contact }) => {
-//   return (
-//     <div>
-//       <h2>Contact Details</h2>
-//       <p>Name: {contact.name}</p>
-//       <p>Email: {contact.email}</p>
-//       <p>Phone: {contact.phone}</p>
-//     </div>
-//   );
-// };
-
-// export default ContactDetails;
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { editContact } from "../../state/actions/contactActions";
+import { useSelector, useDispatch } from "react-redux";
 import { Contact } from "../../Types";
+import { deleteContact, editContact } from "../../state/actions/contactActions";
+import { RootState } from "../../state/store";
 
-interface ContactDetailsProps {
-  contact: Contact;
-}
-
-const ContactDetails: React.FC<ContactDetailsProps> = ({ contact }) => {
+const ContactDetails: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
-  const [editedContact, setEditedContact] = useState<Contact>(contact);
+  const contacts = useSelector((state: RootState) => state.contact.contacts);
+  const [editedContact, setEditedContact] = useState<Contact>(
+    contacts.length > 0 ? contacts[0] : ({} as Contact)
+  );
+
   const dispatch = useDispatch();
 
-  const handleEdit = () => {
+  const handleEdit = (contact: Contact) => {
     setIsEditing(true);
+    setEditedContact(contact);
   };
 
   const handleSave = () => {
@@ -46,7 +25,7 @@ const ContactDetails: React.FC<ContactDetailsProps> = ({ contact }) => {
 
   const handleCancel = () => {
     setIsEditing(false);
-    setEditedContact(contact);
+    setEditedContact(contacts.length > 0 ? contacts[0] : ({} as Contact));
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,9 +35,12 @@ const ContactDetails: React.FC<ContactDetailsProps> = ({ contact }) => {
     });
   };
 
+  const handleDelete = (contactId: number) => {
+    dispatch(deleteContact(contactId));
+  };
+
   return (
     <div>
-      <h2>Contact Details</h2>
       {isEditing ? (
         <>
           <p>
@@ -92,15 +74,33 @@ const ContactDetails: React.FC<ContactDetailsProps> = ({ contact }) => {
           <button onClick={handleCancel}>Cancel</button>
         </>
       ) : (
-        <>
-          <p>Name: {contact.name}</p>
-          <p>Email: {contact.email}</p>
-          <p>Phone: {contact.phone}</p>
-          <button onClick={handleEdit}>Edit Contact</button>
-        </>
+        <div>
+          <h2>Contact List</h2>
+          {contacts.length === 0 ? (
+            <p>No contacts available</p>
+          ) : (
+            <ul>
+              {contacts.map((contact: Contact) => (
+                <li key={contact.id}>
+                  <p>Name: {contact.name}</p>
+                  <p>Email: {contact.email}</p>
+                  <p>Phone: {contact.phone}</p>
+                  <button onClick={() => handleDelete(contact.id)}>
+                    Delete Contact
+                  </button>
+
+                  <button onClick={() => handleEdit(contact)}>
+                    Edit Contact
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       )}
     </div>
   );
 };
 
 export default ContactDetails;
+
