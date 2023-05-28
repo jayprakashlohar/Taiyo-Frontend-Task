@@ -15,7 +15,7 @@ const ContactPage: React.FC = () => {
           <HomePage />
         </div>
         <div>
-          <ContactDetails/>
+          <ContactDetails />
         </div>
       </div>
     </div>
