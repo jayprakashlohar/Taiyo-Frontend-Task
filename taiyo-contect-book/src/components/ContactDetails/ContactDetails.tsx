@@ -44,7 +44,7 @@ const ContactDetails: React.FC = () => {
   return (
     <div>
       {isEditing ? (
-        <div className=" border border-gray-400 ml-80 w-3/4 mt-10 p-2">
+        <div className=" shadow-2xl ml-80 w-3/4 mt-10 p-2">
           <h2 className="text-center text-3xl font-semibold">Edit here</h2>
           <p className="mb-1 mt-2">
             Name:
@@ -84,7 +84,7 @@ const ContactDetails: React.FC = () => {
           </Button>
         </div>
       ) : (
-        <div className="  ml-80 w-3/4 mt-10">
+        <div className="  ml-80 w-3/4 mt-10 shadow-2xl">
           <h2 className="text-center text-3xl font-semibold">Contact List</h2>
           {contacts.length === 0 ? (
             <p className="text-center text-3xl font-semibold">
@@ -95,7 +95,7 @@ const ContactDetails: React.FC = () => {
               {contacts.map((contact: Contact) => (
                 <div
                   key={contact.id}
-                  className=" justify-center items-center gap-10 border border-gray-400 mt-2 p-2"
+                  className=" justify-center items-center gap-10 shadow-inner  mt-2 p-2"
                 >
                   <p className="mb-1">Name: {contact.name}</p>
                   <p className="mb-1">Email: {contact.email}</p>
