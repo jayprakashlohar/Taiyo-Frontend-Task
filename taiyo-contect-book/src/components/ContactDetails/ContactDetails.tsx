@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { Contact } from "../../Types";
 import { deleteContact, editContact } from "../../state/actions/contactActions";
 import { RootState } from "../../state/store";
+import { AiFillEdit, AiFillDelete, AiOutlineEye } from "react-icons/ai";
+import { Button } from "@chakra-ui/react";
 
 const ContactDetails: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -42,59 +44,78 @@ const ContactDetails: React.FC = () => {
   return (
     <div>
       {isEditing ? (
-        <>
-          <p>
+        <div className=" border border-gray-400 ml-80 w-3/4 mt-10 p-2">
+          <h2 className="text-center text-3xl font-semibold">Edit here</h2>
+          <p className="mb-1 mt-2">
             Name:
             <input
+              className=" border border-gray-400 ml-2 mb-2 mt-2"
               type="text"
               name="name"
               value={editedContact.name}
               onChange={handleChange}
             />
           </p>
-          <p>
+          <p className="mb-1">
             Email:
             <input
+              className="border border-gray-400 ml-2 mb-2"
               type="text"
               name="email"
               value={editedContact.email}
               onChange={handleChange}
             />
           </p>
-          <p>
+          <p className="mb-1">
             Phone:
             <input
+              className=" border border-gray-400 ml-2 mb-2"
               type="text"
               name="phone"
               value={editedContact.phone}
               onChange={handleChange}
             />
           </p>
-          <button onClick={handleSave}>Save</button>
-          <button onClick={handleCancel}>Cancel</button>
-        </>
+          <Button colorScheme="green" onClick={handleSave}>
+            Save
+          </Button>
+          <Button float="right" colorScheme="yellow" onClick={handleCancel}>
+            Cancel
+          </Button>
+        </div>
       ) : (
-        <div>
-          <h2>Contact List</h2>
+        <div className=" border border-gray-400 ml-80 w-3/4 mt-10">
+          <h2 className="text-center text-3xl font-semibold">Contact List</h2>
           {contacts.length === 0 ? (
-            <p>No contacts available</p>
+            <p className="text-center text-3xl font-semibold">
+              No contacts available
+            </p>
           ) : (
-            <ul>
+            <div>
               {contacts.map((contact: Contact) => (
-                <li key={contact.id}>
-                  <p>Name: {contact.name}</p>
-                  <p>Email: {contact.email}</p>
-                  <p>Phone: {contact.phone}</p>
-                  <button onClick={() => handleDelete(contact.id)}>
-                    Delete Contact
-                  </button>
-
-                  <button onClick={() => handleEdit(contact)}>
-                    Edit Contact
-                  </button>
-                </li>
+                <div
+                  key={contact.id}
+                  className=" justify-center items-center gap-10 border border-gray-400 mt-2 p-2"
+                >
+                  <p className="mb-1">Name: {contact.name}</p>
+                  <p className="mb-1">Email: {contact.email}</p>
+                  <p className="mb-1">Phone: {contact.phone}</p>
+                  <Button
+                    float="right"
+                    colorScheme="blue"
+                    onClick={() => handleEdit(contact)}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    colorScheme="red"
+                    onClick={() => handleDelete(contact.id)}
+                  >
+                    Delete
+                  </Button>
+                </div>
               ))}
-            </ul>
+            </div>
           )}
         </div>
       )}
@@ -103,4 +124,3 @@ const ContactDetails: React.FC = () => {
 };
 
 export default ContactDetails;
-
